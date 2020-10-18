@@ -322,7 +322,7 @@ const handlePostback = (sender_psid, received_postback) => {
                 "buttons":[
                   {
                     "type":"postback",
-                    "title":"",
+                    "title":"Type your name. Eg: soundar surya",
                     "payload": "getMob" 
                   }
                 ]
@@ -341,6 +341,7 @@ const handlePostback = (sender_psid, received_postback) => {
               "buttons":[
                 {
                   "type":"postback",
+                  "title":`Type your mobile number with country code.`,
                   "payload": "getAddress" 
                 }
               ]
@@ -358,6 +359,7 @@ const handlePostback = (sender_psid, received_postback) => {
                 "buttons":[
                   {
                     "type":"postback",
+                    "title": "Type your current address",
                     "payload": "deadline" 
                   }
                 ]
@@ -377,7 +379,7 @@ const handlePostback = (sender_psid, received_postback) => {
             {
               "type":"postback",
               "title":"ASAP(30 min)",
-              "payload": "getName" 
+              "payload": "placeOrder" 
             },
             {
               "type":"postback",
