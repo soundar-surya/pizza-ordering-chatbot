@@ -202,7 +202,7 @@ const handleMessage = (sender_psid, message) => {
       callSendAPI(sender_psid, "wow, you're so sweet");
       return;
   }
-
+  console.log("cdfdfdfdf"+message);
   let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
   let entityChosen = "";
   entitiesArr.forEach(name => {
