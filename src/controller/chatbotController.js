@@ -132,7 +132,31 @@ const handlePostback = (sender_psid, received_postback) => {
       response = { "text": "Thanks!" }
 
   else if (payload === 'no')
-      response = { "text": "Oops" }
+      response = { 
+                    "recipient":{
+                      "id":sender_psid
+                    },
+                    "messaging_type": "RESPONSE",
+                    "message":{
+                      "text": "How large?:",
+                      "quick_replies":[
+                        {
+                          "content_type":"text",
+                          "title":"Regular",
+                          "payload":"regular"
+                        },{
+                          "content_type":"text",
+                          "title":"Medium",
+                          "payload":"medium"
+                        },
+                        {
+                          "content_type":"text",
+                          "title":"Large",
+                          "payload":"large"
+                        }
+                      ]
+                    }
+       }
 
   else if (payload === 'veg') 
       response = { "text": "size?" }
@@ -204,8 +228,7 @@ const handleMessage = (sender_psid, message) => {
               "type": "template",
               "payload": {
                 "template_type": "button",
-                "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.",
-                "title": "What kind of pizza do you want?",
+                "text": "Hi there! Are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
                   "buttons": [
                     {
                       "type": "postback",
