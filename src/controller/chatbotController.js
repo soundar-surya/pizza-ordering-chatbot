@@ -142,7 +142,7 @@ function callSendAPI(sender_psid, response) {
     "recipient": {
       "id": sender_psid
     },
-    "message": {"text": response}
+    "message": response/*{"text": response}*/
   }
 
   // Send the HTTP request to the Messenger Platform
@@ -192,7 +192,33 @@ function handleMessage(sender_psid, message) {
   }else{
      if(entityChosen === "wit$greetings"){
          //send greetings message
-         callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
+        // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
+                        response = {
+                          "attachment": {
+                            "type": "template",
+                            "payload": {
+                              "template_type": "generic",
+                              "elements": [{
+                                "title": "Is this the right picture?",
+                                "subtitle": "Tap a button to answer.",
+                                "buttons": [
+                                  {
+                                    "type": "postback",
+                                    "title": "veg",
+                                    "payload": "veg",
+                                  },
+                                  {
+                                    "type": "postback",
+                                    "title": "Non-veg",
+                                    "payload": "Non-veg",
+                                  }
+                                ],
+                              }]
+                            }
+                          }
+                        }
+
+                        callSendAPI(sender_psid, response);  
      }
      if(entityChosen === "wit$thanks"){
          //send thanks message
