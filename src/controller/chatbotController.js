@@ -198,31 +198,30 @@ const handleMessage = (sender_psid, message) => {
      if(entityChosen === "wit$greetings"){
          //send greetings message
         // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
-        const response = {
-          "attachment": {
-            "type": "template",
-            "payload": {
-              "template_type": "button",
-              "text": "Hola! Are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.",
-              "elements": [{
-                "title": "What kind of pizza do you want?",
-                "subtitle": "Tap a button to answer.",
-                "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Veg",
-                    "payload": "veg",
-                  },
-                  {
-                    "type": "postback",
-                    "title": "Non-veg",
-                    "payload": "Non-veg",
-                  }
-                ],
-              }]
+
+          let response = {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "button",
+                "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
+                
+                  "buttons": [
+                    {
+                      "type": "postback",
+                      "title": "veg",
+                      "payload": "veg",
+                    },
+                    {
+                      "type": "postback",
+                      "title": "Non-veg",
+                      "payload": "Non-veg",
+                    },
+                  ],
+              }
             }
           }
-        }
+                    
 
             callSendAPI(sender_psid, response);  
      }
