@@ -139,9 +139,9 @@ const handlePostback = (sender_psid, received_postback) => {
                     "template_type":"generic",
                     "elements":[
                       {
-                        "title":"Pick One!",
+                        "title":"Peppy Paneer",
                         "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-1-150x150.jpg",
-                        "subtitle":"We have the right hat for everyone.",
+                        "subtitle":"Paneer, Crisp Capsicum & Red Paprika",
                         "default_action": {
                           "type": "web_url",
                           "url": "https://yoyopizza.com",
@@ -150,7 +150,41 @@ const handlePostback = (sender_psid, received_postback) => {
                         "buttons":[
                          {
                             "type":"postback",
-                            "title":"Start Chatting",
+                            "title":"Select",
+                            "payload":"regular"
+                          }              
+                        ]      
+                      },
+                      {
+                        "title":"Double Cheese Margarita",
+                        "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-3-100x100.jpg",
+                        "subtitle":"Loaded with extra cheese",
+                        "default_action": {
+                          "type": "web_url",
+                          "url": "https://yoyopizza.com",
+                          "webview_height_ratio": "tall",
+                        },
+                        "buttons":[
+                         {
+                            "type":"postback",
+                            "title":"Select",
+                            "payload":"regular"
+                          }              
+                        ]      
+                      },
+                      {
+                        "title":"Country Special",
+                        "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-4-100x100.jpg",
+                        "subtitle":"Onion, Crisp Capsicum & Fresh Tomato",
+                        "default_action": {
+                          "type": "web_url",
+                          "url": "https://yoyopizza.com",
+                          "webview_height_ratio": "tall",
+                        },
+                        "buttons":[
+                         {
+                            "type":"postback",
+                            "title":"Select",
                             "payload":"regular"
                           }              
                         ]      
