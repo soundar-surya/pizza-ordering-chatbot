@@ -131,7 +131,7 @@ const handlePostback = (sender_psid, received_postback) => {
   if (payload === 'yes') 
       response = { "text": "Thanks!" }
 
-  else if (payload === 'no')
+  else if (payload === 'veg')
       response = { 
                     "recipient":{
                       "id":sender_psid
@@ -157,9 +157,6 @@ const handlePostback = (sender_psid, received_postback) => {
                       ]
                     }
        }
-
-  else if (payload === 'veg') 
-      response = { "text": "size?" }
 
   else if (payload === 'Non-veg')
       response = { "text": "medium?" }
