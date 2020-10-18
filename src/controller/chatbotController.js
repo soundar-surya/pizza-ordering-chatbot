@@ -128,8 +128,23 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'regular') 
-      response = { "text": "reg...." }
+  if (payload === 'size') 
+      response = { 
+                "attachment":{
+                  "type":"template",
+                  "payload":{
+                    "template_type":"button",
+                    "text":"What do you want to do next?",
+                    "buttons":[
+                      {
+                        "type":"web_url",
+                        "url":"https://www.messenger.com",
+                        "title":"Visit Messenger"
+                      }
+                    ]
+                  }
+                }
+      }
   else if(payload === 'medium') response = {"text": "med...."}
   else if (payload === 'veg')
       response = {
@@ -150,8 +165,8 @@ const handlePostback = (sender_psid, received_postback) => {
                         "buttons":[
                          {
                             "type":"postback",
-                            "title":"Select",
-                            "payload":"regular"
+                            "title":"Select Peppy Paneer",
+                            "payload":"size"
                           }              
                         ]      
                       },
@@ -167,8 +182,8 @@ const handlePostback = (sender_psid, received_postback) => {
                         "buttons":[
                          {
                             "type":"postback",
-                            "title":"Select",
-                            "payload":"regular"
+                            "title":"Select Margarita",
+                            "payload":"size"
                           }              
                         ]      
                       },
@@ -184,8 +199,8 @@ const handlePostback = (sender_psid, received_postback) => {
                         "buttons":[
                          {
                             "type":"postback",
-                            "title":"Select",
-                            "payload":"regular"
+                            "title":"Select Country Special",
+                            "payload":"size"
                           }              
                         ]      
                       }
