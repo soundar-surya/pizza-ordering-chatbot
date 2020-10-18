@@ -133,6 +133,12 @@ const handlePostback = (sender_psid, received_postback) => {
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
   }
+  else if (payload === 'veg') {
+    response = { "text": "size?" }
+  }
+  else if (payload === 'Non-veg') {
+    response = { "text": "medium?" }
+  }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
@@ -198,6 +204,8 @@ const handleMessage = (sender_psid, message) => {
                             "payload": {
                               "template_type": "button",
                               "text": "Hi there!, are you hungry? Let's get you something tasty delivered.What kind of pizza do you want?",
+                              "text": "Test",
+                              "image_url": "https://images4.alphacoders.com/988/988128.jpg",
                                 "buttons": [
                                   {
                                     "type": "postback",
