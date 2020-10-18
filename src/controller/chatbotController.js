@@ -204,8 +204,8 @@ const handleMessage = (sender_psid, message) => {
               "type": "template",
               "payload": {
                 "template_type": "button",
-                "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
-                
+                "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.",
+                "title": "What kind of pizza do you want?",
                   "buttons": [
                     {
                       "type": "postback",
