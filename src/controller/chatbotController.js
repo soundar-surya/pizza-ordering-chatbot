@@ -134,12 +134,22 @@ const handlePostback = (sender_psid, received_postback) => {
                   "type":"template",
                   "payload":{
                     "template_type":"button",
-                    "text":"What do you want to do next?",
+                    "text":"How large?",
                     "buttons":[
                       {
-                        "type":"web_url",
-                        "url":"https://www.messenger.com",
-                        "title":"Visit Messenger"
+                        "type":"postback",
+                        "title":"small",
+                        "payload": "quantity" 
+                      },
+                      {
+                        "type":"postback",
+                        "title":"medium",
+                        "payload": "quantity" 
+                      },
+                      {
+                        "type":"postback",
+                        "title":"large",
+                        "payload": "quantity" 
                       }
                     ]
                   }
@@ -211,8 +221,35 @@ const handlePostback = (sender_psid, received_postback) => {
 
   else if (payload === 'Non-veg')
       response = { "text": "Pick One" }
-  else
-      response = { "text": "okay."}
+  else if (payload === 'quantity')
+              response = { 
+                "attachment":{
+                  "type":"template",
+                  "payload":{
+                    "template_type":"button",
+                    "text":"How many?",
+                    "buttons":[
+                      {
+                        "type":"postback",
+                        "title":"1",
+                        "payload": "getName" 
+                      },
+                      {
+                        "type":"postback",
+                        "title":"2",
+                        "payload": "getName" 
+                      },
+                      {
+                        "type":"postback",
+                        "title":"5",
+                        "payload": "getName" 
+                      }
+                    ]
+                  }
+                }
+            }
+
+
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
