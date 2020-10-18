@@ -168,49 +168,88 @@ function firstTrait(nlp, name) {
 
 //handling messages 
 function handleMessage(sender_psid, message) {
+  //handle message for react, like press like button
+  // id like button: sticker_id 369239263222822
 
-      if(message && message.attachements && message.attachements[0].payload){
-          callSendAPI(sender_psid, 'Thank you for Alita!.');
-          callSendAPIWithTemplate(sender_psid);
-          return;
+  if( message && message.attachments && message.attachments[0].payload){
+      callSendAPI(sender_psid, "Thank you for watching my video !!!");
+      callSendAPIWithTemplate(sender_psid);
+      return;
+  }
+
+  let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
+  let entityChosen = "";
+  entitiesArr.forEach((name) => {
+      let entity = firstTrait(message.nlp, name);
+      if (entity && entity.confidence > 0.8) {
+          entityChosen = name;
       }
+  });
 
-      let entitiesArr = ["greetings", "thanks", "bye"];
-      let entityChosen = "";
-      entitiesArr.forEach((name) => {
-        let entity = firstEntity(message.nlp, name);
-        if(entity && entity.confidence > 0.8){
-            entityChosen = name;
-          }
-      });
-
-      if(entityChosen === ""){
-        callSendAPI(sender_psid,`Hi there! I'm Alita, are you hungry? Let's get you something tasty delivered`);
-      }else{
-        if(entityChosen === "greetings"){
-          callSendAPI(sender_psid,'Hi there!');
-        }
-        if(entityChosen === "thanks"){
-          callSendAPI(sender_psid,`You're welcome !`);
-        }
-        if(entityChosen === "bye"){
-          callSendAPI(sender_psid,'Hi there!');
-        }
-
+  if(entityChosen === ""){
+      //default
+      callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
+  }else{
+     if(entityChosen === "wit$greetings"){
+         //send greetings message
+         callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
+     }
+     if(entityChosen === "wit$thanks"){
+         //send thanks message
+         callSendAPI(sender_psid,`You 're welcome!`);
+     }
+      if(entityChosen === "wit$bye"){
+          //send bye message
+          callSendAPI(sender_psid,'bye-bye!');
       }
-
-
-
-  // // check greeting is here and is confident
-  // const greeting = firstTrait(message.nlp, 'wit$greetings');
-  // if (greeting && greeting.confidence > 0.8) {
-  //   //sendResponse('Hi there!');
-  //   callSendAPI(sender_psid,'Hi there!');
-  // } else { 
-  //   // default logic
-  //   callSendAPI(sender_psid,'default');
-  // }
+  }
 }
+
+let callSendAPIWithTemplate = (sender_psid) => {
+  // document fb message template
+  // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
+  let body = {
+      "recipient": {
+          "id": sender_psid
+      },
+      "message": {
+          "attachment": {
+              "type": "template",
+              "payload": {
+                  "template_type": "generic",
+                  "elements": [
+                      {
+                          "title": "Want to build sth awesome?",
+                          "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
+                          "subtitle": "Watch more videos on my youtube channel ^^",
+                          "buttons": [
+                              {
+                                  "type": "web_url",
+                                  "url": "https://bit.ly/subscribe-haryphamdev",
+                                  "title": "Watch now"
+                              }
+                          ]
+                      }
+                  ]
+              }
+          }
+      }
+  };
+
+  request({
+      "uri": "https://graph.facebook.com/v6.0/me/messages",
+      "qs": { "access_token": process.env.FB_PAGE_TOKEN },
+      "method": "POST",
+      "json": body
+  }, (err, res, body) => {
+      if (!err) {
+          // console.log('message sent!')
+      } else {
+          console.error("Unable to send message:" + err);
+      }
+  });
+};
+
 
 module.exports = {
     test,
