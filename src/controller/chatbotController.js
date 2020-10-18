@@ -128,9 +128,9 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') 
-      response = { "text": "Thanks!" }
-
+  if (payload === 'regular') 
+      response = { "text": "reg...." }
+  else if(payload === 'medium') response = {"text": "med...."}
   else if (payload === 'veg')
       response = {"text": "test"}
 
@@ -180,31 +180,27 @@ const handleMessage = (sender_psid, message) => {
   }
 
     if(message.text === "yes"){
-                        let response = { 
-                          "recipient":{
-                            "id":sender_psid
-                          },
-                          "messaging_type": "RESPONSE",
-                          "message":{
-                            "text": "How large?:",
-                            "quick_replies":[
-                              {
-                                "content_type":"text",
-                                "title":"Regular",
-                                "payload":"regular"
-                              },{
-                                "content_type":"text",
-                                "title":"Medium",
-                                "payload":"medium"
-                              },
-                              {
-                                "content_type":"text",
-                                "title":"Large",
-                                "payload":"large"
+                            let response = {
+                              "attachment": {
+                                "type": "template",
+                                "payload": {
+                                  "template_type": "button",
+                                  "text": "What kind of pizza do you want?",
+                                    "buttons": [
+                                      {
+                                        "type": "postback",
+                                        "title": "regular",
+                                        "payload": "regular",
+                                      },
+                                      {
+                                        "type": "postback",
+                                        "title": "medium",
+                                        "payload": "medium",
+                                      },
+                                    ],
+                                }
                               }
-                            ]
-                          }
-                }
+                            }
                 callSendAPI(sender_psid, response);  
     }else{
   let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
