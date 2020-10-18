@@ -202,12 +202,11 @@ const handleMessage = (sender_psid, message) => {
           "attachment": {
             "type": "template",
             "payload": {
-              "template_type": "generic",
+              "template_type": "button",
               "text": "Hola! Are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.",
               "elements": [{
                 "title": "What kind of pizza do you want?",
                 "subtitle": "Tap a button to answer.",
-                "image_url": "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
                 "buttons": [
                   {
                     "type": "postback",
