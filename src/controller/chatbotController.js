@@ -1,12 +1,11 @@
 require('dotenv').config();
-import { response } from 'express';
 import request from 'request';
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
-let test = (req, res) => res.send("hola amigo");
+const test = (req, res) => res.send("hola amigo");
 
-let getWebhook  = (req, res) => {
+const getWebhook  = (req, res) => {
 
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = MY_VERIFY_TOKEN;
@@ -34,15 +33,15 @@ let getWebhook  = (req, res) => {
 
 
 
-let postWebhook = (req, res) => {
+const postWebhook = (req, res) => {
 
-    let body = req.body;
+    const body = req.body;
 
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
 
   // Iterates over each entry - there may be multiple if batched
-  body.entry.forEach(function(entry) {
+  body.entry.forEach(entry => {
 
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
@@ -122,7 +121,7 @@ let postWebhook = (req, res) => {
 
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
+const handlePostback = (sender_psid, received_postback) => {
   let response;
   
   // Get the payload for the postback
@@ -140,7 +139,7 @@ function handlePostback(sender_psid, received_postback) {
 
 
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {
+const callSendAPI = (sender_psid, response) => {
   // Construct the message body
   let request_body = {
     "recipient": {
@@ -164,14 +163,11 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
-function firstTrait(nlp, name) {
-  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
-}
-
+const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 
 
 //handling messages 
-function handleMessage(sender_psid, message) {
+const handleMessage = (sender_psid, message) => {
   //handle message for react, like press like button
   // id like button: sticker_id 369239263222822
   if( message && message.attachments && message.attachments[0].payload){
