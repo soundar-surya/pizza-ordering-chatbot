@@ -4,7 +4,7 @@ import request from 'request';
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
-let test = (req, res) => res.send("hola again");
+let test = (req, res) => res.send("hola amigo");
 
 let getWebhook  = (req, res) => {
 
@@ -32,6 +32,8 @@ let getWebhook  = (req, res) => {
     }}
 };
 
+
+
 let postWebhook = (req, res) => {
 
     let body = req.body;
@@ -45,7 +47,7 @@ let postWebhook = (req, res) => {
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event.message.text);
+      //console.log(webhook_event.message);
 
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
@@ -171,6 +173,8 @@ function handleMessage(sender_psid, message) {
   //handle message for react, like press like button
   // id like button: sticker_id 369239263222822
   if( message && message.attachments && message.attachments[0].payload){
+    console.log(message.attachments[0].payload);
+    console.log(message);
       callSendAPI(sender_psid, "Thanks. I had a great time with you.");
       callSendAPIWithTemplate(sender_psid);
       return;
