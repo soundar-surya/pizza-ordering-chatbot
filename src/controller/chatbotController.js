@@ -282,105 +282,6 @@ const handlePostback = (sender_psid, received_postback) => {
                 }
       }
 
-      //get username
-  else if (payload === 'getName')
-              response = { 
-                "attachment":{
-                  "type":"template",
-                  "payload":{
-                    "template_type":"button",
-                    "text":`Got it. Let me just take your info. First up, what's your name?`,
-                    "buttons":[
-                      {
-                        "type":"postback",
-                        "payload": "getMob" 
-                      }
-                    ]
-                  }
-                }
-            }
-            
-            //getMob
-            else if (payload === 'getMob')
-            response = { 
-              "attachment":{
-                "type":"template",
-                "payload":{
-                  "template_type":"button",
-                  "text":`Your mobile number?`,
-                  "buttons":[
-                    {
-                      "type":"postback",
-                      "payload": "getAddress" 
-                    }
-                  ]
-                }
-              }
-          }
-
-          else if (payload === 'getAddress')
-              response = { 
-                "attachment":{
-                  "type":"template",
-                  "payload":{
-                    "template_type":"button",
-                    "text":`Finally the delivery address?`,
-                    "buttons":[
-                      {
-                        "type":"postback",
-                        "payload": "deadline" 
-                      }
-                    ]
-                  }
-                }
-            }
-
-                  //delivery timestamp        
-        else if (payload === 'deadline')
-        response = { 
-          "attachment":{
-            "type":"template",
-            "payload":{
-              "template_type":"button",
-              "text":"when do you want it?",
-              "buttons":[
-                {
-                  "type":"postback",
-                  "title":"ASAP(30 min)",
-                  "payload": "getName" 
-                },
-                {
-                  "type":"postback",
-                  "title":"in an hour",
-                  "payload": "placeOrder" 
-                },
-                {
-                  "type":"postback",
-                  "title":"in 1.5 hour",
-                  "payload": "placeOrder" 
-                },
-                {
-                  "type":"postback",
-                  "title":"in 2 hour",
-                  "payload": "placeOrder" 
-                },
-                {
-                  "type":"postback",
-                  "title":"in 3 hour",
-                  "payload": "placeOrder" 
-                }
-              ]
-            }
-          }
-      }
-
-      //placeOrder
-          else if (payload === 'placeOrder')
-                    response = { 
-                      "text":`Awesome, Your order is placed. You'll soon get a call for confirmation`,
-                  }
-
-
   //getQuantity        
   else if (payload === 'quantity')
               response = { 
@@ -409,6 +310,105 @@ const handlePostback = (sender_psid, received_postback) => {
                   }
                 }
             }
+
+                  //get username
+          else if (payload === 'getName')
+          response = { 
+            "attachment":{
+              "type":"template",
+              "payload":{
+                "template_type":"button",
+                "text":`Got it. Let me just take your info. First up, what's your name?`,
+                "buttons":[
+                  {
+                    "type":"postback",
+                    "title":"",
+                    "payload": "getMob" 
+                  }
+                ]
+              }
+            }
+        }
+
+        //getMob
+        else if (payload === 'getMob')
+        response = { 
+          "attachment":{
+            "type":"template",
+            "payload":{
+              "template_type":"button",
+              "text":`Your mobile number?`,
+              "buttons":[
+                {
+                  "type":"postback",
+                  "payload": "getAddress" 
+                }
+              ]
+            }
+          }
+        }
+
+        else if (payload === 'getAddress')
+          response = { 
+            "attachment":{
+              "type":"template",
+              "payload":{
+                "template_type":"button",
+                "text":`Finally the delivery address?`,
+                "buttons":[
+                  {
+                    "type":"postback",
+                    "payload": "deadline" 
+                  }
+                ]
+              }
+            }
+        }
+
+              //delivery timestamp        
+        else if (payload === 'deadline')
+        response = { 
+        "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"when do you want it?",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"ASAP(30 min)",
+              "payload": "getName" 
+            },
+            {
+              "type":"postback",
+              "title":"in an hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 1.5 hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 2 hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 3 hour",
+              "payload": "placeOrder" 
+            }
+          ]
+        }
+        }
+        }
+
+        //placeOrder
+        else if (payload === 'placeOrder')
+                response = { 
+                  "text":`Awesome, Your order is placed. You'll soon get a call for confirmation`,
+              }
 
 
   // Send the message to acknowledge the postback
