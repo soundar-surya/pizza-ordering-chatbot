@@ -180,7 +180,7 @@ const handleMessage = (sender_psid, message) => {
   }
 
     if(message.text === "yes" || "yeah"){
-                        let response = response = { 
+                        let response = { 
                           "recipient":{
                             "id":sender_psid
                           },
