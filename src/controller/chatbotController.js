@@ -163,9 +163,9 @@ const handlePostback = (sender_psid, received_postback) => {
                       "template_type":"generic",
                       "elements":[
                         {
-                          "title":"Peppy Paneer",
+                          "title":"Cheese & Pepperoni",
                           "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/Pizza-HD-Desktop-Wallpaper-15280-300x201.jpg",
-                          "subtitle":"Paneer, Crisp Capsicum & Red Paprika",
+                          "subtitle":"Pepperoni & Cheese-100% Pork Pepperoni",
                           "default_action": {
                             "type": "web_url",
                             "url": "https://yoyopizza.com",
@@ -174,15 +174,15 @@ const handlePostback = (sender_psid, received_postback) => {
                           "buttons":[
                           {
                               "type":"postback",
-                              "title":"Select Peppy Paneer",
+                              "title":"Select Cheese & Pepperoni",
                               "payload":"size"
                             }              
                           ]      
                         },
                         {
-                          "title":"Double Cheese Margarita",
-                          "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-3-100x100.jpg",
-                          "subtitle":"Loaded with extra cheese",
+                          "title":"Florence Chicken Exotica",
+                          "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/large-cheese-pizza-300x228.jpg",
+                          "subtitle":"Barbeque chicken, Italian chicken sausage & Jalapeno",
                           "default_action": {
                             "type": "web_url",
                             "url": "https://yoyopizza.com",
@@ -191,15 +191,15 @@ const handlePostback = (sender_psid, received_postback) => {
                           "buttons":[
                           {
                               "type":"postback",
-                              "title":"Select Margarita",
+                              "title":"Select Exotica",
                               "payload":"size"
                             }              
                           ]      
                         },
                         {
-                          "title":"Country Special",
+                          "title":"Chicken Mexicana",
                           "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-4-300x222.jpg",
-                          "subtitle":"Onion, Crisp Capsicum & Fresh Tomato",
+                          "subtitle":"Onion, Fresh Tomato, Red Paprika, chicken sprinkled with mexican herbs.",
                           "default_action": {
                             "type": "web_url",
                             "url": "https://yoyopizza.com",
@@ -208,7 +208,7 @@ const handlePostback = (sender_psid, received_postback) => {
                           "buttons":[
                           {
                               "type":"postback",
-                              "title":"Select Country Special",
+                              "title":"Select Mexicana",
                               "payload":"size"
                             }              
                           ]      
@@ -245,7 +245,7 @@ const handlePostback = (sender_psid, received_postback) => {
                       },
                       {
                         "title":"Double Cheese Margarita",
-                        "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-3-100x100.jpg",
+                        "image_url":"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190226-buffalo-chicken-pizza-370-1552084943.jpg?crop=0.668xw:1.00xh;0.209xw,0.00255xh&resize=768:*",
                         "subtitle":"Loaded with extra cheese",
                         "default_action": {
                           "type": "web_url",
@@ -262,7 +262,7 @@ const handlePostback = (sender_psid, received_postback) => {
                       },
                       {
                         "title":"Country Special",
-                        "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-4-100x100.jpg",
+                        "image_url":"https://d37ky63zmmmzfj.cloudfront.net/production/itemimages/special_snacks/pizza/paneervegpizza_1no.jpg",
                         "subtitle":"Onion, Crisp Capsicum & Fresh Tomato",
                         "default_action": {
                           "type": "web_url",
