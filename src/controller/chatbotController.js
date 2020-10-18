@@ -70,49 +70,49 @@ let postWebhook = (req, res) => {
 };
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
-  let response;
+// function handleMessage(sender_psid, received_message) {
+//   let response;
   
-  // Checks if the message contains text
-  if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
-    }
-  } else if (received_message.attachments) {
-    // Get the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
-  } 
+//   // Checks if the message contains text
+//   if (received_message.text) {    
+//     // Create the payload for a basic text message, which
+//     // will be added to the body of our request to the Send API
+//     response = {
+//       "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+//     }
+//   } else if (received_message.attachments) {
+//     // Get the URL of the message attachment
+//     let attachment_url = received_message.attachments[0].payload.url;
+//     response = {
+//       "attachment": {
+//         "type": "template",
+//         "payload": {
+//           "template_type": "generic",
+//           "elements": [{
+//             "title": "Is this the right picture?",
+//             "subtitle": "Tap a button to answer.",
+//             "image_url": attachment_url,
+//             "buttons": [
+//               {
+//                 "type": "postback",
+//                 "title": "Yes!",
+//                 "payload": "yes",
+//               },
+//               {
+//                 "type": "postback",
+//                 "title": "No!",
+//                 "payload": "no",
+//               }
+//             ],
+//           }]
+//         }
+//       }
+//     }
+//   } 
   
-  // Send the response message
-  callSendAPI(sender_psid, response);    
-}
+//   // Send the response message
+//   callSendAPI(sender_psid, response);    
+// }
 
 
 
@@ -142,7 +142,7 @@ function callSendAPI(sender_psid, response) {
     "recipient": {
       "id": sender_psid
     },
-    "message": response
+    "message": {"text": response}
   }
 
   // Send the HTTP request to the Messenger Platform
@@ -166,18 +166,45 @@ function firstTrait(nlp, name) {
 
 
 
-// //handling messages 
-// function handleMessage(sender_psid, message) {
-//   // check greeting is here and is confident
-//   const greeting = firstTrait(message.nlp, 'wit$greetings');
-//   if (greeting && greeting.confidence > 0.8) {
-//     //sendResponse('Hi there!');
-//     callSendAPI(sender_psid,'Hi there!');
-//   } else { 
-//     // default logic
-//     callSendAPI(sender_psid,'default');
-//   }
-// }
+//handling messages 
+function handleMessage(sender_psid, message) {
+
+      let entitiesArr = ["greetings", "thanks", "bye"];
+      let entityChosen = "";
+      entitiesArr.forEach( name => {
+        let entity = firstEntity(message.nlp, name);
+        if(entity && entity.confidence > 0.8){
+            entityChosen = name;
+          }
+      });
+
+      if(entityChosen === ""){
+        callSendAPI(sender_psid,`Hi there! I'm Alita, are you hungry? Let's get you something tasty delivered`);
+      }else{
+        if(entityChosen === "greetings"){
+          callSendAPI(sender_psid,'Hi there!');
+        }
+        if(entityChosen === "thanks"){
+          callSendAPI(sender_psid,`You're welcome !`);
+        }
+        if(entityChosen === "bye"){
+          callSendAPI(sender_psid,'Hi there!');
+        }
+
+      }
+
+
+
+  // // check greeting is here and is confident
+  // const greeting = firstTrait(message.nlp, 'wit$greetings');
+  // if (greeting && greeting.confidence > 0.8) {
+  //   //sendResponse('Hi there!');
+  //   callSendAPI(sender_psid,'Hi there!');
+  // } else { 
+  //   // default logic
+  //   callSendAPI(sender_psid,'default');
+  // }
+}
 
 module.exports = {
     test,
