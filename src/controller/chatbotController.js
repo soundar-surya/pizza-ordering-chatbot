@@ -193,14 +193,12 @@ function handleMessage(sender_psid, message) {
      if(entityChosen === "wit$greetings"){
          //send greetings message
         // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
-                        response = {
+                       let response = {
                           "attachment": {
                             "type": "template",
                             "payload": {
-                              "template_type": "generic",
-                              "elements": [{
-                                "title": "Is this the right picture?",
-                                "subtitle": "Tap a button to answer.",
+                              "template_type": "button",
+                              "text": "Check @ 123",
                                 "buttons": [
                                   {
                                     "type": "postback",
@@ -213,7 +211,7 @@ function handleMessage(sender_psid, message) {
                                     "payload": "Non-veg",
                                   }
                                 ],
-                              }]
+                    
                             }
                           }
                         }
