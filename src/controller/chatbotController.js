@@ -184,7 +184,7 @@ const handleMessage = (sender_psid, message) => {
 
   let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
   let entityChosen = "";
-  entitiesArr.forEach((name) => {
+  entitiesArr.forEach(name => {
       let entity = firstTrait(message.nlp, name);
       if (entity && entity.confidence > 0.8) {
           entityChosen = name;
@@ -203,7 +203,7 @@ const handleMessage = (sender_psid, message) => {
                             "type": "template",
                             "payload": {
                               "template_type": "button",
-                              "text": "Hi there!, are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
+                              "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
                                 "buttons": [
                                   {
                                     "type": "postback",
@@ -214,6 +214,10 @@ const handleMessage = (sender_psid, message) => {
                                     "type": "postback",
                                     "title": "Non-veg",
                                     "payload": "Non-veg",
+                                  },
+                                  {
+                                    "type": "postback",
+                                    "payload": "yes",
                                   }
                                 ],
                     
