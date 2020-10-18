@@ -47,7 +47,7 @@ let postWebhook = (req, res) => {
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      // console.log(webhook_event);
 
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
@@ -57,8 +57,10 @@ let postWebhook = (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
+        console.log(webhook_event.message);
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
+        console.log(webhook_event.postback);
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
