@@ -86,36 +86,36 @@ const postWebhook = (req, res) => {
 //   } else if (received_message.attachments) {
 //     // Get the URL of the message attachment
 //     let attachment_url = received_message.attachments[0].payload.url;
-//     response = {
-//       "attachment": {
-//         "type": "template",
-//         "payload": {
-//           "template_type": "generic",
-//           "elements": [{
-//             "title": "Is this the right picture?",
-//             "subtitle": "Tap a button to answer.",
-//             "image_url": attachment_url,
-//             "buttons": [
-//               {
-//                 "type": "postback",
-//                 "title": "Yes!",
-//                 "payload": "yes",
-//               },
-//               {
-//                 "type": "postback",
-//                 "title": "No!",
-//                 "payload": "no",
-//               }
-//             ],
-//           }]
-//         }
-//       }
-//     }
-//   } 
+    // response = {
+    //   "attachment": {
+    //     "type": "template",
+    //     "payload": {
+    //       "template_type": "generic",
+    //       "elements": [{
+    //         "title": "Is this the right picture?",
+    //         "subtitle": "Tap a button to answer.",
+    //         "image_url": attachment_url,
+    //         "buttons": [
+    //           {
+    //             "type": "postback",
+    //             "title": "Yes!",
+    //             "payload": "yes",
+    //           },
+    //           {
+    //             "type": "postback",
+    //             "title": "No!",
+    //             "payload": "no",
+    //           }
+    //         ],
+    //       }]
+    //     }
+    //   }
+    // }
+   //} 
   
-//   // Send the response message
-//   callSendAPI(sender_psid, response);    
-// }
+  // Send the response message
+ // callSendAPI(sender_psid, response);    
+//}
 
 
 
@@ -198,29 +198,32 @@ const handleMessage = (sender_psid, message) => {
      if(entityChosen === "wit$greetings"){
          //send greetings message
         // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
-                       let response = {
-                          "attachment": {
-                            "type": "template",
-                            "payload": {
-                              "template_type": "button",
-                              "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
-                              
-                                "buttons": [
-                                  {
-                                    "type": "postback",
-                                    "title": "veg",
-                                    "payload": "veg",
-                                  },
-                                  {
-                                    "type": "postback",
-                                    "title": "Non-veg",
-                                    "payload": "Non-veg",
-                                  },
-                                ],
-                    
-                            }
-                          }
-                        }
+        const response = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "text": "Hola! Are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.",
+              "elements": [{
+                "title": "What kind of pizza do you want?",
+                "subtitle": "Tap a button to answer.",
+                "image_url": "https://images.unsplash.com/photo-1594179047502-07fb8a5451f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Veg",
+                    "payload": "veg",
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Non-veg",
+                    "payload": "Non-veg",
+                  }
+                ],
+              }]
+            }
+          }
+        }
 
             callSendAPI(sender_psid, response);  
      }
@@ -241,4 +244,29 @@ module.exports = {
     getWebhook,
     postWebhook,
 }
+
+
+
+// let response = {
+//   "attachment": {
+//     "type": "template",
+//     "payload": {
+//       "template_type": "button",
+//       "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
+      
+//         "buttons": [
+//           {
+//             "type": "postback",
+//             "title": "veg",
+//             "payload": "veg",
+//           },
+//           {
+//             "type": "postback",
+//             "title": "Non-veg",
+//             "payload": "Non-veg",
+//           },
+//         ],
+//     }
+//   }
+// }
 
