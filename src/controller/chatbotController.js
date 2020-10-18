@@ -128,17 +128,19 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  }
-  else if (payload === 'veg') {
-    response = { "text": "size?" }
-  }
-  else if (payload === 'Non-veg') {
-    response = { "text": "medium?" }
-  }
+  if (payload === 'yes') 
+      response = { "text": "Thanks!" }
+
+  else if (payload === 'no')
+      response = { "text": "Oops" }
+
+  else if (payload === 'veg') 
+      response = { "text": "size?" }
+
+  else if (payload === 'Non-veg')
+      response = { "text": "medium?" }
+  else
+      response = { "text": "okay."}
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
@@ -161,23 +163,22 @@ const callSendAPI = (sender_psid, response) => {
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
-    if (!err) {
+    if (!err)
       console.log('message sent!')
-    } else {
+  else
       console.error("Unable to send message:" + err);
-    }
+
   }); 
 }
 
+//nlp config
 const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
-
 
 //handling messages 
 const handleMessage = (sender_psid, message) => {
-  //handle message for react, like press like button
-  // id like button: sticker_id 369239263222822
+
   if( message && message.attachments && message.attachments[0].payload){
-      callSendAPI(sender_psid, "wow! That was epic.");
+      callSendAPI(sender_psid, "wow, you're so sweet");
       return;
   }
 
@@ -192,7 +193,7 @@ const handleMessage = (sender_psid, message) => {
 
   if(entityChosen === ""){
       //default
-      callSendAPI(sender_psid,`I don't get you!` );
+      callSendAPI(sender_psid,`sorry, I don't get you!` );
   }else{
      if(entityChosen === "wit$greetings"){
          //send greetings message
@@ -221,7 +222,7 @@ const handleMessage = (sender_psid, message) => {
                           }
                         }
 
-                        callSendAPI(sender_psid, response);  
+            callSendAPI(sender_psid, response);  
      }
      if(entityChosen === "wit$thanks"){
          //send thanks message
