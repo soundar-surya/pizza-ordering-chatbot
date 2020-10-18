@@ -169,10 +169,10 @@ function handleMessage(sender_psid, message) {
   const greeting = firstTrait(message.nlp, 'wit$greetings');
   if (greeting && greeting.confidence > 0.8) {
     //sendResponse('Hi there!');
-    callSendAPI(sender_psid, response, 'Hi there!');
+    callSendAPI(sender_psid,'Hi there!');
   } else { 
     // default logic
-    callSendAPI(sender_psid, response, 'default');
+    callSendAPI(sender_psid,'default');
   }
 }
 
