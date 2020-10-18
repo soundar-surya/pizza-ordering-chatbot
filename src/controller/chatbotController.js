@@ -140,22 +140,18 @@ const handlePostback = (sender_psid, received_postback) => {
                     "elements":[
                       {
                         "title":"Pick One!",
-                        "image_url":"https://petersfancybrownhats.com/company_image.png",
+                        "image_url":"http://www.tasteepizza.com/wp-content/uploads/2018/03/slider-img-1-150x150.jpg",
                         "subtitle":"We have the right hat for everyone.",
                         "default_action": {
                           "type": "web_url",
-                          "url": "https://petersfancybrownhats.com/view?item=103",
+                          "url": "https://yoyopizza.com",
                           "webview_height_ratio": "tall",
                         },
                         "buttons":[
-                          {
-                            "type":"web_url",
-                            "url":"https://petersfancybrownhats.com",
-                            "title":"View Website"
-                          },{
+                         {
                             "type":"postback",
                             "title":"Start Chatting",
-                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                            "payload":"regular"
                           }              
                         ]      
                       }
