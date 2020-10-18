@@ -202,8 +202,8 @@ const handleMessage = (sender_psid, message) => {
                           "attachment": {
                             "type": "template",
                             "payload": {
-                              "template_type": "generic",
-                              "text": "Hi there!, are you hungry? Let's get you something tasty delivered.What kind of pizza do you want?",
+                              "template_type": "button",
+                              "text": "Hi there!, are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
                                 "buttons": [
                                   {
                                     "type": "postback",
