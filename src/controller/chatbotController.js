@@ -132,10 +132,10 @@ const handlePostback = (sender_psid, received_postback) => {
       response = { "text": "reg...." }
   else if(payload === 'medium') response = {"text": "med...."}
   else if (payload === 'veg')
-      response = {"text": "test"}
+      response = {"text": "Pick One"}
 
   else if (payload === 'Non-veg')
-      response = { "text": "medium?" }
+      response = { "text": "Pick One" }
   else
       response = { "text": "okay."}
   // Send the message to acknowledge the postback
@@ -179,7 +179,7 @@ const handleMessage = (sender_psid, message) => {
       return;
   }
 
-    if(message.text === "yes"){
+    if(message.text === "Pick One"){
                             let response = {
                               "attachment": {
                                 "type": "template",
@@ -202,58 +202,59 @@ const handleMessage = (sender_psid, message) => {
                               }
                             }
                 callSendAPI(sender_psid, response);  
-    }else{
-  let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
-  let entityChosen = "";
-  entitiesArr.forEach(name => {
-      let entity = firstTrait(message.nlp, name);
-      if (entity && entity.confidence > 0.8) {
-          entityChosen = name;
-      }
-  });
-
-  if(entityChosen === ""){
-      //default
-      callSendAPI(sender_psid,`sorry, I don't get you!` );
-  }else{
-     if(entityChosen === "wit$greetings"){
-         //send greetings message
-        // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
-
-          let response = {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "button",
-                "text": "Hi there! Are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
-                  "buttons": [
-                    {
-                      "type": "postback",
-                      "title": "veg",
-                      "payload": "veg",
-                    },
-                    {
-                      "type": "postback",
-                      "title": "Non-veg",
-                      "payload": "Non-veg",
-                    },
-                  ],
+    }
+    else{
+          let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
+          let entityChosen = "";
+          entitiesArr.forEach(name => {
+              let entity = firstTrait(message.nlp, name);
+              if (entity && entity.confidence > 0.8) {
+                  entityChosen = name;
               }
-            }
-          }
-                    
+          });
 
-            callSendAPI(sender_psid, response);  
-     }
-     if(entityChosen === "wit$thanks"){
-         //send thanks message
-         callSendAPI(sender_psid,`You 're welcome!`);
-     }
-      if(entityChosen === "wit$bye"){
-          //send bye message
-          callSendAPI(sender_psid,'bye-bye!');
-      }
-  } }
+          if(entityChosen === ""){
+              //default
+              callSendAPI(sender_psid,`sorry, I don't get you!` );
+          }else{
+            if(entityChosen === "wit$greetings"){
+                //send greetings message
+                // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
+
+                  let response = {
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "button",
+                        "text": "Hola! Welcome to Yo Yo Pizza! What kind of pizza do you want?",
+                          "buttons": [
+                            {
+                              "type": "postback",
+                              "title": "veg",
+                              "payload": "veg",
+                            },
+                            {
+                              "type": "postback",
+                              "title": "Non-veg",
+                              "payload": "Non-veg",
+                            },
+                          ],
+                      }
+                    }
+                  }
+                            
+
+                    callSendAPI(sender_psid, response);  
+            }
+            if(entityChosen === "wit$thanks"){
+                //send thanks message
+                callSendAPI(sender_psid,`You 're welcome!`);
+            }
+              if(entityChosen === "wit$bye"){
+                  //send bye message
+                  callSendAPI(sender_psid,'bye bye!');
+              }
+          } }
 }
 
 
