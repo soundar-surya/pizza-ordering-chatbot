@@ -132,31 +132,7 @@ const handlePostback = (sender_psid, received_postback) => {
       response = { "text": "Thanks!" }
 
   else if (payload === 'veg')
-      response = { 
-                    "recipient":{
-                      "id":sender_psid
-                    },
-                    "messaging_type": "RESPONSE",
-                    "message":{
-                      "text": "How large?:",
-                      "quick_replies":[
-                        {
-                          "content_type":"text",
-                          "title":"Regular",
-                          "payload":"regular"
-                        },{
-                          "content_type":"text",
-                          "title":"Medium",
-                          "payload":"medium"
-                        },
-                        {
-                          "content_type":"text",
-                          "title":"Large",
-                          "payload":"large"
-                        }
-                      ]
-                    }
-       }
+      response = {"text": "test"}
 
   else if (payload === 'Non-veg')
       response = { "text": "medium?" }
@@ -202,7 +178,35 @@ const handleMessage = (sender_psid, message) => {
       callSendAPI(sender_psid, "wow, you're so sweet");
       return;
   }
-  console.log("cdfdfdfdf"+message.text);
+
+    if(message.text === "yes" || "yeah"){
+                        let response = response = { 
+                          "recipient":{
+                            "id":sender_psid
+                          },
+                          "messaging_type": "RESPONSE",
+                          "message":{
+                            "text": "How large?:",
+                            "quick_replies":[
+                              {
+                                "content_type":"text",
+                                "title":"Regular",
+                                "payload":"regular"
+                              },{
+                                "content_type":"text",
+                                "title":"Medium",
+                                "payload":"medium"
+                              },
+                              {
+                                "content_type":"text",
+                                "title":"Large",
+                                "payload":"large"
+                              }
+                            ]
+                          }
+                }
+                callSendAPI(sender_psid, response);  
+    }else{
   let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
   let entityChosen = "";
   entitiesArr.forEach(name => {
@@ -253,7 +257,7 @@ const handleMessage = (sender_psid, message) => {
           //send bye message
           callSendAPI(sender_psid,'bye-bye!');
       }
-  }
+  } }
 }
 
 
