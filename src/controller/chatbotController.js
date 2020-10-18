@@ -202,9 +202,8 @@ const handleMessage = (sender_psid, message) => {
                           "attachment": {
                             "type": "template",
                             "payload": {
-                              "template_type": "button",
+                              "template_type": "generic",
                               "text": "Hi there!, are you hungry? Let's get you something tasty delivered.What kind of pizza do you want?",
-                              "text": "Test",
                               "image_url": "https://images4.alphacoders.com/988/988128.jpg",
                                 "buttons": [
                                   {
