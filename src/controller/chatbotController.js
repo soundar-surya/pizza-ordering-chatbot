@@ -169,9 +169,15 @@ function firstTrait(nlp, name) {
 //handling messages 
 function handleMessage(sender_psid, message) {
 
+      if(message && message.attachements && message.attachements[0].payload){
+          callSendAPI(sender_psid, 'Thank you for Alita!.');
+          callSendAPIWithTemplate(sender_psid);
+          return;
+      }
+
       let entitiesArr = ["greetings", "thanks", "bye"];
       let entityChosen = "";
-      entitiesArr.forEach( name => {
+      entitiesArr.forEach((name) => {
         let entity = firstTrait(message.nlp, name);
         if(entity && entity.confidence > 0.8){
             entityChosen = name;
