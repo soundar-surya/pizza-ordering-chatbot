@@ -204,7 +204,6 @@ const handleMessage = (sender_psid, message) => {
                             "payload": {
                               "template_type": "generic",
                               "text": "Hi there!, are you hungry? Let's get you something tasty delivered.What kind of pizza do you want?",
-                              "image_url": "https://images4.alphacoders.com/988/988128.jpg",
                                 "buttons": [
                                   {
                                     "type": "postback",
