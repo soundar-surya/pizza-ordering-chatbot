@@ -81,7 +81,8 @@ const postWebhook = (req, res) => {
                         console.log(e);
                       }
                 }
-
+                  console.log('msg'+webhook_event.message);
+                  console.log('txt'+webhook_event.message.text);
 
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
