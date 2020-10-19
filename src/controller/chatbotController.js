@@ -426,42 +426,27 @@ const handleMessage = (sender_psid, message) => {
             callSendAPI(sender_psid, 'enter number with coutry code');
     }
     else if(deadline.test(message.text)){
-      response = { 
-        "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"when do you want it?",
-          "buttons":[
-            {
-              "type":"postback",
-              "title":`ASAP(30 min)`,
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in an hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 1.5 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 2 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 3 hour",
-              "payload": "placeOrder" 
-            }
-          ]
+      let response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "button",
+            "text": "What kind of pizza do you want?",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "regular",
+                  "payload": "regular",
+                },
+                {
+                  "type": "postback",
+                  "title": "medium",
+                  "payload": "medium",
+                },
+              ],
+          }
         }
-        }
-        }
+      }
       callSendAPI(sender_psid, response);  
     }
     else{
