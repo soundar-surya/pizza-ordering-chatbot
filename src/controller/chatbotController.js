@@ -293,17 +293,17 @@ const handlePostback = (sender_psid, received_postback) => {
                     "buttons":[
                       {
                         "type":"postback",
-                        "title":"1",
+                        "title":`${1}`,
                         "payload": "deadline" 
                       },
                       {
                         "type":"postback",
-                        "title":"2",
+                        "title":`${2}`,
                         "payload": "deadline" 
                       },
                       {
                         "type":"postback",
-                        "title":"5",
+                        "title":`${5}`,
                         "payload": "deadline" 
                       }
                     ]
@@ -448,7 +448,7 @@ const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp
 const handleMessage = (sender_psid, message) => {
 
   let pattern = /^[0-9]{10}$/g;
-  let deadline = /^[0-9]{1-2}$/g;
+  let deadline = /^[0-9]{1,2}$/g;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
