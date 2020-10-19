@@ -481,44 +481,8 @@ const handleMessage = (sender_psid, message) => {
     else if(pattern.test(message.text)){
             callSendAPI(sender_psid, 'enter number with coutry code');
     }
-    else if(message.text == 1 || message.text == 2 || message.text == 5){
-      response = { 
-        "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"when do you want it?",
-          "buttons":[
-            {
-              "type":"postback",
-              "title":`ASAP(30 min)`,
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in an hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 1.5 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 2 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 3 hour",
-              "payload": "placeOrder" 
-            }
-          ]
-        }
-        }
-        }
-        callSendAPI(sender_psid, response);  
+    else if(message.text === 1 || message.text === 2 || message.text === 5){
+      callSendAPI(sender_psid, 'vgdfvgvgh');  
     }
     else{
           let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number", "wit$datetime"];
