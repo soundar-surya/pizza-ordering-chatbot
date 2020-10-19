@@ -311,62 +311,7 @@ const handlePostback = (sender_psid, received_postback) => {
                 }
             }
 
-                  //get username
-          else if (payload === 'getName')
-          response = { 
-            "attachment":{
-              "type":"template",
-              "payload":{
-                "template_type":"button",
-                "text":`Got it. Let me just take your info. First up, what's your name?`,
-                "buttons":[
-                  {
-                    "type":"postback",
-                    "title":"Type your name. Eg: soundar surya",
-                    "payload": "getMob" 
-                  }
-                ]
-              }
-            }
-        }
-
-        //getMob
-        else if (payload === 'gtMob')
-        response = { 
-          "attachment":{
-            "type":"template",
-            "payload":{
-              "template_type":"button",
-              "text":`Your mobile number?`,
-              "buttons":[
-                {
-                  "type":"postback",
-                  "payload": "getAddress" 
-                }
-              ]
-            }
-          }
-        }
-
-        else if (payload === 'getAddress')
-          response = { 
-            "attachment":{
-              "type":"template",
-              "payload":{
-                "template_type":"button",
-                "text":`Finally the delivery address?`,
-                "buttons":[
-                  {
-                    "type":"postback",
-                    "title": "Type your current address",
-                    "payload": "deadline" 
-                  }
-                ]
-              }
-            }
-        }
-
-              //delivery timestamp        
+                    //delivery timestamp        
         else if (payload === 'deadline')
         response = { 
         "attachment":{
@@ -377,7 +322,7 @@ const handlePostback = (sender_psid, received_postback) => {
           "buttons":[
             {
               "type":"postback",
-              "title":"ASAP(30 min)",
+              "title":`ASAP(30 min)`,
               "payload": "placeOrder" 
             },
             {
@@ -405,11 +350,65 @@ const handlePostback = (sender_psid, received_postback) => {
         }
         }
 
+        //           //get username
+        //   else if (payload === 'getName')
+        //   response = { 
+        //     "attachment":{
+        //       "type":"template",
+        //       "payload":{
+        //         "template_type":"button",
+        //         "text":`Got it. Let me just take your info. First up, what's your name?`,
+        //         "buttons":[
+        //           {
+        //             "type":"postback",
+        //             "title":"Type your name. Eg: soundar surya",
+        //             "payload": "getMob" 
+        //           }
+        //         ]
+        //       }
+        //     }
+        // }
+
+        // //getMob
+        // else if (payload === 'gtMob')
+        // response = { 
+        //   "attachment":{
+        //     "type":"template",
+        //     "payload":{
+        //       "template_type":"button",
+        //       "text":`Your mobile number?`,
+        //       "buttons":[
+        //         {
+        //           "type":"postback",
+        //           "payload": "getAddress" 
+        //         }
+        //       ]
+        //     }
+        //   }
+        // }
+
+        // else if (payload === 'getAddress')
+        //   response = { 
+        //     "attachment":{
+        //       "type":"template",
+        //       "payload":{
+        //         "template_type":"button",
+        //         "text":`Finally the delivery address?`,
+        //         "buttons":[
+        //           {
+        //             "type":"postback",
+        //             "title": "Type your current address",
+        //             "payload": "deadline" 
+        //           }
+        //         ]
+        //       }
+        //     }
+        // }
+
+
         //placeOrder
         else if (payload === 'placeOrder')
-                response = { 
-                  "text":`Awesome, Your order is placed. You'll soon get a call for confirmation`,
-              }
+                return callSendAPI(sender_psid, Awesome, `Your order is placed. You'll soon get a call for confirmation`);
 
 
   // Send the message to acknowledge the postback
