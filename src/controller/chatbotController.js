@@ -328,7 +328,7 @@ const handleMessage = (sender_psid, message) => {
   let deadline = /^[0-9]{1,2}$/g;
   let patt = /^name:\W*[\w\W]{5,10}$/i;
   let Address = /^address:\W*[\w\d\W]{7,35}$/g;
-  let trackOrder = /^track my order[\W\s*]/gi;
+  let trackOrder = /^track my order\s*/i;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
@@ -370,10 +370,13 @@ const handleMessage = (sender_psid, message) => {
               // console.log(`name is ${match}`);
              callSendAPI(sender_psid, `what's your address? Eg: address: 55 Clark St, Brooklyn, NY.`); 
     }
-        else if(message.text.match(Address)){
+    else if(message.text.match(Address)){
           // const match = message.text.split(':');
           // console.log(`name is ${match}`);
           callSendAPI(sender_psid, `Awesome, Your order is placed. You'll soon get a call for confirmation`); 
+    }
+    else if(message.text == "okay" || message.text == "ok"){
+      callSendAPI(sender_psid, "Done!"); 
     }
 
     else if(deadline.test(message.text)){
