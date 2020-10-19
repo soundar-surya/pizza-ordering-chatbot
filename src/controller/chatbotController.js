@@ -449,6 +449,8 @@ const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp
 //handling messages 
 const handleMessage = (sender_psid, message) => {
 
+  let pattern = /^[0-9]{10}$/g;
+
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
       return;
@@ -477,6 +479,9 @@ const handleMessage = (sender_psid, message) => {
                               }
                             }
                 callSendAPI(sender_psid, response);  
+    }
+    else if(pattern.test(message.text)){
+            callSendAPI(sender_psid, 'enter number with coutry code');
     }
     else{
           let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number", "wit$datetime"];
@@ -529,36 +534,8 @@ const handleMessage = (sender_psid, message) => {
                   //send bye message
                   callSendAPI(sender_psid,'bye bye!');
               }
-              if(entityChosen === "wit$datetime"){
-                                response = { 
-                                  "entities": {
-                                    "wit$datetime:datetime": [
-                                      {
-                                        "id": "340464963587159",
-                                        "name": "wit$datetime",
-                                        "role": "datetime",
-                                        "start": 8,
-                                        "end": 23,
-                                        "body": "tomorrow at 4pm",
-                                        "confidence": 0.9704,
-                                        "entities": [],
-                                        "type": "value",
-                                        "grain": "hour",
-                                        "value": "2020-06-16T16:00:00.000-07:00",
-                                        "values": [
-                                          {
-                                            "type": "value",
-                                            "grain": "hour",
-                                            "value": "2020-06-16T16:00:00.000-07:00"
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }}
-                                callSendAPI(sender_psid,'bye bye!');
-              }
+                   }
           } }
-}
 
 
 module.exports = {
