@@ -432,7 +432,7 @@ const handleMessage = (sender_psid, message) => {
     else if(message.text.match(patt)){
               // const match = message.text.split(':').trim();
               // console.log(`name is ${match}`);
-             callSendAPI(sender_psid, `what's your address? Eg: address: 13, Baker street.UK`); 
+             callSendAPI(sender_psid, `what's your address? Eg: address: 55 Clark St, Brooklyn, NY.`); 
     }
         else if(message.text.match(Address)){
           // const match = message.text.split(':');
