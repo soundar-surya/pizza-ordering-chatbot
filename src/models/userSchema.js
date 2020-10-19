@@ -6,7 +6,4 @@ const userSchema = new Schema({
     userId: String,
     Orders: [OrdersSchema]
 });
-
-mongoose.model('Users', userSchema);
-
-module.exports = userSchema;
+mongoose.model('users', userSchema);

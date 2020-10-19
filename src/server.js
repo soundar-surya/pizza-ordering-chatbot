@@ -1,10 +1,12 @@
 require('dotenv').config();
 import express from 'express';
 import mongoose from 'mongoose';
+import './models/userSchema';
 import bodyParser from 'body-parser';
 import viewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';
 import {MONGO_URI} from './models/config';
+
 
 //database config
 mongoose.connect(MONGO_URI, {
@@ -13,6 +15,7 @@ mongoose.connect(MONGO_URI, {
     useFindAndModify: false,
     useCreateIndex: true
 });
+
 
 const app = express();
 

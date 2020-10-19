@@ -1,8 +1,8 @@
 require('dotenv').config();
 import request from 'request';
 import mongoose from 'mongoose';
-import user from '../models/userSchema';
 
+const User = mongoose.model('users');
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
@@ -57,10 +57,9 @@ const postWebhook = (req, res) => {
  
     //create an userModel if the user is new.
     try{
-    const isNew = await user.findOne({ userId: sender_psid } )
-    if(isNew) {}
-    else{
-        await new user( {userId: sender_psid} ).save();
+    const isNew = await User.findOne({ userId: sender_psid } )
+    if(!isNew){ 
+        await new User( {userId: sender_psid} ).save();
     } }
     catch(e){console.log(e);}
 

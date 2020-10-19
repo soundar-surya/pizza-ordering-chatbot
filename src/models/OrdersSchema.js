@@ -1,6 +1,7 @@
+import monggose from 'mongoose';
 import { Schema } from 'mongoose';
 
-const OrdersSchema = new Schema({
+const ordersSchema = new Schema({
         orderedAt: Date,
         name: String,
         size: String,
@@ -10,4 +11,4 @@ const OrdersSchema = new Schema({
         _orderId: String, 
 });
 
-module.exports = OrdersSchema;
+module.exports = ordersSchema;
