@@ -56,11 +56,13 @@ const postWebhook = (req, res) => {
     console.log('Sender PSID: ' + sender_psid);
  
     //create an userModel if the user is new.
-    const isNew = await user.find({ userId: sender_psid } )
+    try{
+    const isNew = await user.findOne({ userId: sender_psid } )
     if(isNew) {}
     else{
         await new user( {userId: sender_psid} ).save();
-    } 
+    } }
+    catch(e){console.log(e);}
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
