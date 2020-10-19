@@ -1,4 +1,5 @@
 require('dotenv').config();
+import { response } from 'express';
 import request from 'request';
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
@@ -285,70 +286,12 @@ const handlePostback = (sender_psid, received_postback) => {
   //getQuantity        
   else if (payload === 'quantity')
               response = { 
-                "attachment":{
-                  "type":"template",
-                  "payload":{
-                    "template_type":"button",
-                    "text":"How many?",
-                    "buttons":[
-                      {
-                        "type":"postback",
-                        "title":`${1}`,
-                        "payload": "deadline" 
-                      },
-                      {
-                        "type":"postback",
-                        "title":`${2}`,
-                        "payload": "deadline" 
-                      },
-                      {
-                        "type":"postback",
-                        "title":`${5}`,
-                        "payload": "deadline" 
-                      }
-                    ]
-                  }
-                }
+              "text": "How many?"
             }
 
                     //delivery timestamp        
-        else if (payload === 'deadline')
-        response = { 
-        "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"button",
-          "text":"when do you want it?",
-          "buttons":[
-            {
-              "type":"postback",
-              "title":`ASAP(30 min)`,
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in an hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 1.5 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 2 hour",
-              "payload": "placeOrder" 
-            },
-            {
-              "type":"postback",
-              "title":"in 3 hour",
-              "payload": "placeOrder" 
-            }
-          ]
-        }
-        }
-        }
+       // else if (payload === 'deadline')
+       
 
         //           //get username
         //   else if (payload === 'getName')
@@ -483,7 +426,43 @@ const handleMessage = (sender_psid, message) => {
             callSendAPI(sender_psid, 'enter number with coutry code');
     }
     else if(deadline.test(message.text)){
-      callSendAPI(sender_psid, 'vgdfvgvgh');  
+      response = { 
+        "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"when do you want it?",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":`ASAP(30 min)`,
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in an hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 1.5 hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 2 hour",
+              "payload": "placeOrder" 
+            },
+            {
+              "type":"postback",
+              "title":"in 3 hour",
+              "payload": "placeOrder" 
+            }
+          ]
+        }
+        }
+        }
+      callSendAPI(sender_psid, response);  
     }
     else{
           let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number", "wit$datetime"];
