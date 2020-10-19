@@ -1,5 +1,8 @@
 require('dotenv').config();
 import request from 'request';
+import mongoose from 'mongoose';
+import user from '../models/userSchema';
+
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
@@ -41,7 +44,7 @@ const postWebhook = (req, res) => {
   if (body.object === 'page') {
 
   // Iterates over each entry - there may be multiple if batched
-  body.entry.forEach(entry => {
+  body.entry.forEach( async (entry) => {
 
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
@@ -52,6 +55,12 @@ const postWebhook = (req, res) => {
     let sender_psid = webhook_event.sender.id;
     console.log('Sender PSID: ' + sender_psid);
  
+    //create an userModel if the user is new.
+    const isNew = await user.find({ userId: sender_psid } )
+    if(isNew) {}
+    else{
+        await new user( {userId: sender_psid} ).save();
+    } 
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
