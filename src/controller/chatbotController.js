@@ -331,7 +331,7 @@ const handlePostback = (sender_psid, received_postback) => {
         }
 
         //getMob
-        else if (payload === 'getMob')
+        else if (payload === 'gtMob')
         response = { 
           "attachment":{
             "type":"template",
@@ -479,7 +479,7 @@ const handleMessage = (sender_psid, message) => {
                 callSendAPI(sender_psid, response);  
     }
     else{
-          let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
+          let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number"];
           let entityChosen = "";
           entitiesArr.forEach(name => {
               let entity = firstTrait(message.nlp, name);
@@ -528,6 +528,25 @@ const handleMessage = (sender_psid, message) => {
               if(entityChosen === "wit$bye"){
                   //send bye message
                   callSendAPI(sender_psid,'bye bye!');
+              }
+              if(entityChosen === "wit$phone_number"){
+                                response = { 
+                                  "attachment":{
+                                    "type":"template",
+                                    "payload":{
+                                      "template_type":"button",
+                                      "text":`Your mobile number?`,
+                                      "buttons":[
+                                        {
+                                          "type":"postback",
+                                          "title":`Type your mobile number with country code.`,
+                                          "payload": "getAddress" 
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                                callSendAPI(sender_psid,'bye bye!');
               }
           } }
 }
