@@ -288,6 +288,8 @@ const handlePostback = (sender_psid, received_postback) => {
               response = { 
               "text": "How many?"
             }
+  else if(payload === 'askNumber')
+            response = {"text": "your mobile number?"}
 
                     //delivery timestamp        
        // else if (payload === 'deadline')
@@ -436,17 +438,17 @@ const handleMessage = (sender_psid, message) => {
                 {
                   "type": "postback",
                   "title": "ASAP-in 30mins",
-                  "payload": "regular",
+                  "payload": "askNumber",
                 },
                 {
                   "type": "postback",
                   "title": "in an hour",
-                  "payload": "medium",
+                  "payload": "askNumber",
                 },
                 {
                   "type": "postback",
                   "title": "in 2 hour",
-                  "payload": "medium",
+                  "payload": "askNumber",
                 }
               ],
           }
