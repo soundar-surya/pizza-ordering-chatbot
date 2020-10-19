@@ -68,8 +68,8 @@ const postWebhook = (req, res) => {
                       if(!isNew){ 
                           await new User( {userId: sender_psid} ).save();
                         } 
-                      
-                     if(webhook_event.message === 'veg' || webhook_event.message === 'Non-veg'){
+                      const msg = webhook_event.message;
+                     if(msg === 'veg' || msg === 'Non-veg'){
                             const orderID = uuid();
                             await new Order( { orderId: orderID } ).save();
                           }
