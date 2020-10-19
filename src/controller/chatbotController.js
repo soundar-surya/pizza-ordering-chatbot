@@ -479,7 +479,7 @@ const handleMessage = (sender_psid, message) => {
                 callSendAPI(sender_psid, response);  
     }
     else{
-          let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number"];
+          let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$phone_number", "wit$datetime"];
           let entityChosen = "";
           entitiesArr.forEach(name => {
               let entity = firstTrait(message.nlp, name);
@@ -529,23 +529,32 @@ const handleMessage = (sender_psid, message) => {
                   //send bye message
                   callSendAPI(sender_psid,'bye bye!');
               }
-              if(entityChosen === "wit$phone_number"){
+              if(entityChosen === "wit$datetime"){
                                 response = { 
-                                  "attachment":{
-                                    "type":"template",
-                                    "payload":{
-                                      "template_type":"button",
-                                      "text":`Your mobile number?`,
-                                      "buttons":[
-                                        {
-                                          "type":"postback",
-                                          "title":`Type your mobile number with country code.`,
-                                          "payload": "getAddress" 
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
+                                  "entities": {
+                                    "wit$datetime:datetime": [
+                                      {
+                                        "id": "340464963587159",
+                                        "name": "wit$datetime",
+                                        "role": "datetime",
+                                        "start": 8,
+                                        "end": 23,
+                                        "body": "tomorrow at 4pm",
+                                        "confidence": 0.9704,
+                                        "entities": [],
+                                        "type": "value",
+                                        "grain": "hour",
+                                        "value": "2020-06-16T16:00:00.000-07:00",
+                                        "values": [
+                                          {
+                                            "type": "value",
+                                            "grain": "hour",
+                                            "value": "2020-06-16T16:00:00.000-07:00"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }}
                                 callSendAPI(sender_psid,'bye bye!');
               }
           } }
