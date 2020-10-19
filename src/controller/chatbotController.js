@@ -51,20 +51,7 @@ const postWebhook = (req, res) => {
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
     console.log('Sender PSID: ' + sender_psid);
-
-
-    const requestUserName = (id) => {
-      const qs = 'access_token=' + encodeURIComponent(process.env.PAGE_ACCESS_TOKEN);
-      return fetch('https://graph.facebook.com/v2.8/' + encodeURIComponent(id) +'?' + qs)
-      .then(rsp => rsp.json())
-      .then(json => {
-        if (json.error && json.error.message) {
-          throw new Error(json.error.message);
-        }
-        return json;
-      });
-    };
-    console.log(requestUserName(sender_psid));
+ 
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
@@ -555,4 +542,29 @@ module.exports = {
     getWebhook,
     postWebhook,
 }
+
+
+
+// let response = {
+//   "attachment": {
+//     "type": "template",
+//     "payload": {
+//       "template_type": "button",
+//       "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
+      
+//         "buttons": [
+//           {
+//             "type": "postback",
+//             "title": "veg",
+//             "payload": "veg",
+//           },
+//           {
+//             "type": "postback",
+//             "title": "Non-veg",
+//             "payload": "Non-veg",
+//           },
+//         ],
+//     }
+//   }
+// }
 
