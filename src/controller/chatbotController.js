@@ -431,18 +431,23 @@ const handleMessage = (sender_psid, message) => {
           "type": "template",
           "payload": {
             "template_type": "button",
-            "text": "What kind of pizza do you want?",
+            "text": "When do you want it",
               "buttons": [
                 {
                   "type": "postback",
-                  "title": "regular",
+                  "title": "ASAP-in 30mins",
                   "payload": "regular",
                 },
                 {
                   "type": "postback",
-                  "title": "medium",
+                  "title": "in an hour",
                   "payload": "medium",
                 },
+                {
+                  "type": "postback",
+                  "title": "in 2 hour",
+                  "payload": "medium",
+                }
               ],
           }
         }
