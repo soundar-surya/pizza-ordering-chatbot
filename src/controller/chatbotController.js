@@ -341,7 +341,6 @@ const handlePostback = (sender_psid, received_postback) => {
               "buttons":[
                 {
                   "type":"postback",
-                  "title":`Type your mobile number with country code.`,
                   "payload": "getAddress" 
                 }
               ]
