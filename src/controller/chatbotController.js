@@ -289,7 +289,7 @@ const handlePostback = (sender_psid, received_postback) => {
               "text": "How many?"
             }
   else if(payload === 'askNumber')
-            response = {"text": "your mobile number?"}
+            response = {"text": "Got it. Let me just take your info. First up, your mobile number?"}
 
                     //delivery timestamp        
        // else if (payload === 'deadline')
@@ -352,8 +352,8 @@ const handlePostback = (sender_psid, received_postback) => {
 
 
         //placeOrder
-        else if (payload === 'placeOrder')
-                return callSendAPI(sender_psid, Awesome, `Your order is placed. You'll soon get a call for confirmation`);
+       // else if (payload === 'placeOrder')
+         //       return callSendAPI(sender_psid, Awesome, `Your order is placed. You'll soon get a call for confirmation`);
 
 
   // Send the message to acknowledge the postback
@@ -394,6 +394,8 @@ const handleMessage = (sender_psid, message) => {
 
   let pattern = /^[0-9]{10}$/g;
   let deadline = /^[0-9]{1,2}$/g;
+  let patt = /^name: [\w \W]{5,10}$/i;
+  let Address = /^address:[\w\d\W]{7,20}$/g;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
@@ -425,15 +427,26 @@ const handleMessage = (sender_psid, message) => {
                 callSendAPI(sender_psid, response);  
     }
     else if(pattern.test(message.text)){
-            callSendAPI(sender_psid, 'enter number with coutry code');
+            callSendAPI(sender_psid, `What's your name? Eg:  name: soundar surya`);
     }
+    else if(message.text.match(patt)){
+              const match = message.text.split(':').trim();
+              console.log(`name is ${match}`);
+             callSendAPI(sender_psid, `what's your address? Eg: address: 13, Baker street.UK`); 
+    }
+        else if(message.text.match(Address)){
+          const match = message.text.split(':');
+          console.log(`name is ${match}`);
+          callSendAPI(sender_psid, `Awesome, Your order is placed. You'll soon get a call for confirmation`); 
+    }
+
     else if(deadline.test(message.text)){
       let response = {
         "attachment": {
           "type": "template",
           "payload": {
             "template_type": "button",
-            "text": "When do you want it",
+            "text": "When do you want it?",
               "buttons": [
                 {
                   "type": "postback",
