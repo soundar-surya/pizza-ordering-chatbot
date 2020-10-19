@@ -373,7 +373,8 @@ const handleMessage = (sender_psid, message) => {
     else if(message.text.match(Address)){
           // const match = message.text.split(':');
           // console.log(`name is ${match}`);
-          callSendAPI(sender_psid, `Awesome, Your order is placed. You'll soon get a call for confirmation`); 
+          callSendAPI(sender_psid, `Awesome, Your order is placed.`);
+          callSendApi(sender_psid, `You'll soon get a call for confirmation`); 
     }
     else if(message.text == "okay" || message.text == "ok"){
       callSendAPI(sender_psid, "Done!"); 
