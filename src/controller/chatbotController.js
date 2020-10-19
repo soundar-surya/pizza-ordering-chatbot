@@ -57,23 +57,30 @@ const postWebhook = (req, res) => {
     let sender_psid = webhook_event.sender.id;
     console.log('Sender PSID: ' + sender_psid);
  
-    //create an userModel if the user is new.
-    if(sender_psid !== '104117128151163' ){
-            try{
-            const isNew = await User.findOne({ userId: sender_psid } )
-            if(!isNew){ 
-                const user = await new User( {userId: sender_psid} ).save();
-                const orderID = uuid();
-                const order = await new Order( { orderId: orderID } ).save();
-              } 
-          }
-            catch(e){
-              console.log(e);
-            }
-      }
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
+        //create an userModel if the user is new.
+    if(sender_psid !== '104117128151163' ){
+
+                      try{
+                      const isNew = await User.findOne({ userId: sender_psid } )
+                      if(!isNew){ 
+                          await new User( {userId: sender_psid} ).save();
+                        } 
+                      
+                     if(webhook_event.message === 'veg' || webhook_event.message === 'Non-veg')
+                            const orderID = uuid();
+                            await new Order( { orderId: orderID } ).save();
+                      console.log(isNew._id);
+
+                    }
+                      catch(e){
+                        console.log(e);
+                      }
+                }
+
+
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
