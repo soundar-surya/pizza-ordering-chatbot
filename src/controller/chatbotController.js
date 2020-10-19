@@ -1,6 +1,7 @@
 require('dotenv').config();
 import request from 'request';
 import mongoose from 'mongoose';
+import uuid from 'uuidv1';
 
 const User = mongoose.model('users');
 
@@ -56,20 +57,26 @@ const postWebhook = (req, res) => {
     console.log('Sender PSID: ' + sender_psid);
  
     //create an userModel if the user is new.
-    try{
-    const isNew = await User.findOne({ userId: sender_psid } )
-    if(!isNew){ 
-        await new User( {userId: sender_psid} ).save();
-    } }
-    catch(e){console.log(e);}
-
+    if(sender_psid !== '104117128151163' ){
+            try{
+            const isNew = await User.findOne({ userId: sender_psid } )
+            if(!isNew){ 
+                const user = await new User( {userId: sender_psid} );
+                await user.Orders.push({orderId: uuid()}).save();
+              } 
+            else{
+              await User.findOneAndUpdate(  )
+            }
+          }
+            catch(e){
+              console.log(e);
+            }
+      }
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        console.log(webhook_event.message.text);
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
-        console.log(webhook_event.postback);
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
@@ -345,31 +352,31 @@ const handleMessage = (sender_psid, message) => {
       return;
   }
 
-    if(message.text === "Pick One"){
-                            let response = {
-                              "attachment": {
-                                "type": "template",
-                                "payload": {
-                                  "template_type": "button",
-                                  "text": "What kind of pizza do you want?",
-                                    "buttons": [
-                                      {
-                                        "type": "postback",
-                                        "title": "regular",
-                                        "payload": "regular",
-                                      },
-                                      {
-                                        "type": "postback",
-                                        "title": "medium",
-                                        "payload": "medium",
-                                      },
-                                    ],
-                                }
-                              }
-                            }
-                callSendAPI(sender_psid, response);  
-    }
-    else if(pattern.test(message.text)){
+    // if(message.text === "Pick One"){
+    //                         let response = {
+    //                           "attachment": {
+    //                             "type": "template",
+    //                             "payload": {
+    //                               "template_type": "button",
+    //                               "text": "What kind of pizza do you want?",
+    //                                 "buttons": [
+    //                                   {
+    //                                     "type": "postback",
+    //                                     "title": "regular",
+    //                                     "payload": "regular",
+    //                                   },
+    //                                   {
+    //                                     "type": "postback",
+    //                                     "title": "medium",
+    //                                     "payload": "medium",
+    //                                   },
+    //                                 ],
+    //                             }
+    //                           }
+    //                         }
+    //             callSendAPI(sender_psid, response);  
+    // }
+    if(pattern.test(message.text)){
             callSendAPI(sender_psid, `What's your name? Eg:  name: soundar surya`);
     }
     else if(trackOrder.test(message.text)){
@@ -434,7 +441,6 @@ const handleMessage = (sender_psid, message) => {
           }else{
             if(entityChosen === "wit$greetings"){
                 //send greetings message
-                // callSendAPI(sender_psid,`Hi there!, are you hungry? Let's get you something tasty delivered.`);
 
                   let response = {
                     "attachment": {
@@ -457,9 +463,8 @@ const handleMessage = (sender_psid, message) => {
                       }
                     }
                   }
-                            
-
-                    callSendAPI(sender_psid, response);  
+                  //send response        
+                  callSendAPI(sender_psid, response);
             }
             if(entityChosen === "wit$thanks"){
                 //send thanks message
