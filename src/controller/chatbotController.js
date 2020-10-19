@@ -294,17 +294,17 @@ const handlePostback = (sender_psid, received_postback) => {
                       {
                         "type":"postback",
                         "title":"1",
-                        "payload": "getName" 
+                        "payload": "deadline" 
                       },
                       {
                         "type":"postback",
                         "title":"2",
-                        "payload": "getName" 
+                        "payload": "deadline" 
                       },
                       {
                         "type":"postback",
                         "title":"5",
-                        "payload": "getName" 
+                        "payload": "deadline" 
                       }
                     ]
                   }
