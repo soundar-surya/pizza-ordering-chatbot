@@ -1,5 +1,4 @@
 require('dotenv').config();
-import { response } from 'express';
 import request from 'request';
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
@@ -117,8 +116,6 @@ const postWebhook = (req, res) => {
   // Send the response message
  // callSendAPI(sender_psid, response);    
 //}
-
-
 
 
 // Handles messaging_postbacks events
@@ -291,71 +288,6 @@ const handlePostback = (sender_psid, received_postback) => {
   else if(payload === 'askNumber')
             response = {"text": "Got it. Let me just take your info. First up, your mobile number?"}
 
-                    //delivery timestamp        
-       // else if (payload === 'deadline')
-       
-
-        //           //get username
-        //   else if (payload === 'getName')
-        //   response = { 
-        //     "attachment":{
-        //       "type":"template",
-        //       "payload":{
-        //         "template_type":"button",
-        //         "text":`Got it. Let me just take your info. First up, what's your name?`,
-        //         "buttons":[
-        //           {
-        //             "type":"postback",
-        //             "title":"Type your name. Eg: soundar surya",
-        //             "payload": "getMob" 
-        //           }
-        //         ]
-        //       }
-        //     }
-        // }
-
-        // //getMob
-        // else if (payload === 'gtMob')
-        // response = { 
-        //   "attachment":{
-        //     "type":"template",
-        //     "payload":{
-        //       "template_type":"button",
-        //       "text":`Your mobile number?`,
-        //       "buttons":[
-        //         {
-        //           "type":"postback",
-        //           "payload": "getAddress" 
-        //         }
-        //       ]
-        //     }
-        //   }
-        // }
-
-        // else if (payload === 'getAddress')
-        //   response = { 
-        //     "attachment":{
-        //       "type":"template",
-        //       "payload":{
-        //         "template_type":"button",
-        //         "text":`Finally the delivery address?`,
-        //         "buttons":[
-        //           {
-        //             "type":"postback",
-        //             "title": "Type your current address",
-        //             "payload": "deadline" 
-        //           }
-        //         ]
-        //       }
-        //     }
-        // }
-
-
-        //placeOrder
-       // else if (payload === 'placeOrder')
-         //       return callSendAPI(sender_psid, Awesome, `Your order is placed. You'll soon get a call for confirmation`);
-
-
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
@@ -395,7 +327,8 @@ const handleMessage = (sender_psid, message) => {
   let pattern = /^[0-9]{10}$/g;
   let deadline = /^[0-9]{1,2}$/g;
   let patt = /^name:\W*[\w\W]{5,10}$/i;
-  let Address = /^address:\W*[\w\d\W]{7,20}$/g;
+  let Address = /^address:\W*[\w\d\W]{7,35}$/g;
+  let trackOrder = /^track my order[\W\s*]/gi;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
@@ -428,6 +361,9 @@ const handleMessage = (sender_psid, message) => {
     }
     else if(pattern.test(message.text)){
             callSendAPI(sender_psid, `What's your name? Eg:  name: soundar surya`);
+    }
+    else if(trackOrder.test(message.text)){
+              callSendAPI(sender_psid, `what's your Order Id?`);
     }
     else if(message.text.match(patt)){
               // const match = message.text.split(':').trim();
@@ -530,28 +466,4 @@ module.exports = {
     postWebhook,
 }
 
-
-
-// let response = {
-//   "attachment": {
-//     "type": "template",
-//     "payload": {
-//       "template_type": "button",
-//       "text": "Hi there! are you hungry? Let's get you something tasty delivered from Yo Yo Pizza.What kind of pizza do you want?",
-      
-//         "buttons": [
-//           {
-//             "type": "postback",
-//             "title": "veg",
-//             "payload": "veg",
-//           },
-//           {
-//             "type": "postback",
-//             "title": "Non-veg",
-//             "payload": "Non-veg",
-//           },
-//         ],
-//     }
-//   }
-// }
 
