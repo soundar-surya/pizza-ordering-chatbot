@@ -2,6 +2,7 @@ require('dotenv').config();
 import express from 'express';
 import mongoose from 'mongoose';
 import './models/userSchema';
+import './models/OrdersSchema';
 import bodyParser from 'body-parser';
 import viewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';

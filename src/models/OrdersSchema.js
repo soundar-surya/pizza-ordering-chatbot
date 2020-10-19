@@ -1,4 +1,4 @@
-import monggose from 'mongoose';
+import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 
 const ordersSchema = new Schema({
@@ -8,7 +8,8 @@ const ordersSchema = new Schema({
         quantity:  {type: Number, default: 0},
         ItemName: String,
         Address: String,
-        orderId: String, 
+        orderId: String,
+        userId: {type: Schema.Types.ObjectId, ref: 'users'} 
 });
 
-module.exports = ordersSchema;
+mongoose.model('orders', ordersSchema);

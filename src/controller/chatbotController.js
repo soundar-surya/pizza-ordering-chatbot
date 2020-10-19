@@ -61,12 +61,8 @@ const postWebhook = (req, res) => {
             try{
             const isNew = await User.findOne({ userId: sender_psid } )
             if(!isNew){ 
-                const user = await new User( {userId: sender_psid} );
-                await user.Orders.push({orderId: uuid()}).save();
+                const user = await new User( {userId: sender_psid} ).save();
               } 
-            else{
-              await User.findOneAndUpdate(  )
-            }
           }
             catch(e){
               console.log(e);
