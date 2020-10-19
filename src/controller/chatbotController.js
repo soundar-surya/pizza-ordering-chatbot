@@ -68,21 +68,11 @@ const postWebhook = (req, res) => {
                       if(!isNew){ 
                           await new User( {userId: sender_psid} ).save();
                         } 
-                     if(webhook_event.message.text === 'veg'){
-                      const orderID = uuid();
-                      await new Order( { orderId: orderID } ).save();
-                    }
-                    if(msg === 'Non-veg'){
-                            const orderID = uuid();
-                            await new Order( { orderId: orderID } ).save();
-                          }
                     }
                       catch(e){
                         console.log(e);
                       }
                 }
-                  console.log('msg'+webhook_event.message);
-                  console.log('txt'+webhook_event.message.text);
 
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
@@ -243,7 +233,11 @@ const handlePostback = (sender_psid, received_postback) => {
                }
 
   
-  else if (payload === 'veg')
+  else if (payload === 'veg'){
+
+      const orderID = uuid();
+      new Order( { orderId: orderID } ).save();
+
       response = {
                 "attachment":{
                   "type":"template",
@@ -305,6 +299,7 @@ const handlePostback = (sender_psid, received_postback) => {
                   }
                 }
       }
+    }
 
   //getQuantity        
   else if (payload === 'quantity')
