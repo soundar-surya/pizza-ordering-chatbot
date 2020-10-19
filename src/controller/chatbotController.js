@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import uuid from 'uuidv1';
 
 const User = mongoose.model('users');
+const Order = mongoose.model('orders');
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 
@@ -62,6 +63,8 @@ const postWebhook = (req, res) => {
             const isNew = await User.findOne({ userId: sender_psid } )
             if(!isNew){ 
                 const user = await new User( {userId: sender_psid} ).save();
+                const orderID = uuid();
+                const order = await new Order( { orderId: orderID } ).save();
               } 
           }
             catch(e){
