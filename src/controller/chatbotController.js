@@ -448,6 +448,7 @@ const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp
 const handleMessage = (sender_psid, message) => {
 
   let pattern = /^[0-9]{10}$/g;
+  let deadline = /^[0-9]{1-2}$/g;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
@@ -481,7 +482,7 @@ const handleMessage = (sender_psid, message) => {
     else if(pattern.test(message.text)){
             callSendAPI(sender_psid, 'enter number with coutry code');
     }
-    else if(message.text === 1 || message.text === 2 || message.text === 5){
+    else if(deadline.test(message.text)){
       callSendAPI(sender_psid, 'vgdfvgvgh');  
     }
     else{
