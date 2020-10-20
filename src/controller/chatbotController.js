@@ -243,7 +243,7 @@ const handlePostback = async (sender_psid, received_postback) => {
 
       const orderID = uuid();
       const orderNum = await User.findOne({userId: sender_psid});
-      const _orderid = orderID+(orderNum.orderNo+1);
+      const _orderid = "YoYoPizzaOrderId"+(orderNum.orderNo+1);
       await new Order( { orderId:  _orderid, userId: sender_psid} ).save();
       await User.updateOne({userId: sender_psid}, {$inc: {orderNo: 1} });
 
@@ -375,7 +375,9 @@ const handleMessage = async (sender_psid, message) => {
              callSendAPI(sender_psid, `what's your address? Eg: address: 55 Clark St, Brooklyn, NY.`); 
     }
     else if(message.text.match(Address)){
-          const orderID = Order.findOne({userId: sender_psid});
+          const userID = await User.findOne( {userId: sender_psid} );
+          const appBanner = `YoYoPizzaOrderId${userID.orderNo}`;
+          const orderID = Order.findOne({userId: sender_psid, orderId: appBanner});
           callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID ${orderID.orderId} .You'll soon get a call for confirmation`); 
     }
     else if(message.text == "okay" || message.text == "ok" || message.text == "Ok" || message.text == "Okay"){
