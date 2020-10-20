@@ -236,8 +236,10 @@ const handlePostback = (sender_psid, received_postback) => {
   else if (payload === 'veg'){
 
       const orderID = uuid();
-      new Order( { orderId: orderID } ).save();
-
+      const orderNum = await User.find({userId: sender_psid});
+      const _orderid = orderID+(orderNum.orderNo++).toString();
+      await new Order( { orderId:  _orderid} ).save();
+      orderNum.update({ userId: sender_psid }, {$set: {orderNo: 1} });
       response = {
                 "attachment":{
                   "type":"template",
