@@ -356,7 +356,7 @@ const handleMessage = async (sender_psid, message) => {
 
   let pattern = /^[0-9]{10}$/g;
   let deadline = /^[0-9]{1,2}$/g;
-  let patt = /^name:\W*[\w\W]{5,10}$/i;
+  let patt = /^name:\W*[\w\W]{5,15}$/i;
   let Address = /^address:\W*[\w\d\W]{7,35}$/g;
   let trackOrder = /^track my order\s*/i;
   let orderNumber = /^YoYoPizzaOrderId[\d]+/g;
