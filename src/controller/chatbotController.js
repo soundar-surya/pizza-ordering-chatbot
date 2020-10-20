@@ -382,8 +382,8 @@ const handleMessage = async (sender_psid, message) => {
     }
 
     else if(deadline.test(message.text)){
-
-    const orderNum = await User.findOne({userId: sender_psid});
+      console.log(typeof message.text);
+      console.log(typeof Number(message.text));
     await Order.updateOne({userId: sender_psid}, {quantity: message.text});
 
       let response = {
