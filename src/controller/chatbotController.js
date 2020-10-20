@@ -238,7 +238,7 @@ const handlePostback = async (sender_psid, received_postback) => {
       const orderID = uuid();
       const orderNum = await User.find({userId: sender_psid});
       const _orderid = orderID+(orderNum.orderNo++);
-      console.log(_orderid);
+      console.log(orderNum.orderNo);
       await new Order( { orderId:  _orderid} ).save();
       //orderNum.update({ userId: sender_psid }, {$set: {orderNo: 1} });
       response = {
