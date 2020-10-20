@@ -135,7 +135,7 @@ const postWebhook = (req, res) => {
 
 
 // Handles messaging_postbacks events
-const handlePostback = (sender_psid, received_postback) => {
+const handlePostback = async (sender_psid, received_postback) => {
   let response;
   
   // Get the payload for the postback
