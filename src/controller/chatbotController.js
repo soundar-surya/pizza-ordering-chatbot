@@ -375,16 +375,15 @@ const handleMessage = async (sender_psid, message) => {
              callSendAPI(sender_psid, `what's your address? Eg: address: 55 Clark St, Brooklyn, NY.`); 
     }
     else if(message.text.match(Address)){
-          callSendAPI(sender_psid, `Awesome, Your order is placed.You'll soon get a call for confirmation`); 
+          const orderID = Order.findOne({userId: sender_psid});
+          callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID ${orderID.orderId} .You'll soon get a call for confirmation`); 
     }
     else if(message.text == "okay" || message.text == "ok" || message.text == "Ok" || message.text == "Okay"){
       callSendAPI(sender_psid, "Done!"); 
     }
 
     else if(deadline.test(message.text)){
-      console.log(typeof message.text);
-      console.log(typeof Number(message.text));
-    await Order.updateOne({userId: sender_psid}, {quantity: message.text});
+     await Order.updateOne({userId: sender_psid}, {quantity: message.text});
 
       let response = {
         "attachment": {
