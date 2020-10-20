@@ -10,6 +10,8 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=272871623970299&autoLogAppEvents=1" nonce="vYScqYwX"></script>
+
 </head>
 <body>
   <nav>
@@ -26,12 +28,28 @@
     data-share="true"
     data-width="450"
     data-show-faces="true">
+
+    <div id="fb-root"></div>
+    <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+
     </div>
   </div>
 
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
     <script>
+              FB.login(function(response) {
+            if (response.authResponse) {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+              console.log('Good to see you, ' + response.name + '.');
+            });
+            } else {
+            console.log('User cancelled login or did not fully authorize.');
+            }
+        });
+        
+
       window.fbAsyncInit = function() {
         FB.init({
           xfbml            : true,
@@ -51,9 +69,9 @@
     <div class="fb-customerchat"
       attribution=setup_tool
       page_id="104117128151163"
-theme_color="#42A7EA"
-logged_in_greeting="Hi! How can i help you?"
-logged_out_greeting="Hi! How can i help you?">
+      theme_color="#42A7EA"
+      logged_in_greeting="Hi! How can i help you?"
+      logged_out_greeting="Hi! How can i help you?">
     </div>
 </body>
 </html>
