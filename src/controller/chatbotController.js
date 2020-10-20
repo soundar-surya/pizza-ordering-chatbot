@@ -377,8 +377,8 @@ const handleMessage = async (sender_psid, message) => {
     else if(message.text.match(Address)){
           const userID = await User.findOne( {userId: sender_psid} );
           const appBanner = `YoYoPizzaOrderId${userID.orderNo}`;
-          const orderID = Order.findOne({userId: sender_psid, orderId: appBanner});
-          callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID ${orderID.orderId} .You'll soon get a call for confirmation`); 
+          //const orderID = await Order.findOne({userId: sender_psid, orderId: appBanner});
+          callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID ${appBanner} .You'll soon get a call for confirmation`); 
     }
     else if(message.text == "okay" || message.text == "ok" || message.text == "Ok" || message.text == "Okay"){
       callSendAPI(sender_psid, "Done!"); 
