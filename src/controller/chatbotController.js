@@ -352,7 +352,7 @@ const callSendAPI = (sender_psid, response) => {
 const firstTrait = (nlp, name) => nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 
 //handling messages 
-const handleMessage = (sender_psid, message) => {
+const handleMessage = async (sender_psid, message) => {
 
   let pattern = /^[0-9]{10}$/g;
   let deadline = /^[0-9]{1,2}$/g;
