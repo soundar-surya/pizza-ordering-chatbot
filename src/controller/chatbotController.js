@@ -359,6 +359,7 @@ const handleMessage = async (sender_psid, message) => {
   let patt = /^name:\W*[\w\W]{5,10}$/i;
   let Address = /^address:\W*[\w\d\W]{7,35}$/g;
   let trackOrder = /^track my order\s*/i;
+  let orderNumber = /^YoYoPizzaOrderId[\d]+/g;
 
   if( message && message.attachments && message.attachments[0].payload){
       callSendAPI(sender_psid, "wow, you're so sweet");
@@ -367,6 +368,9 @@ const handleMessage = async (sender_psid, message) => {
 
     if(pattern.test(message.text)){
             callSendAPI(sender_psid, `What's your name? Eg:  name: soundar surya`);
+    }
+    else if(orderNumber.test(message.text)){
+            callSendAPI(sender_psid, 'Your food is still being prepared!');
     }
     else if(trackOrder.test(message.text)){
               callSendAPI(sender_psid, `what's your Order Id?`);
@@ -378,7 +382,7 @@ const handleMessage = async (sender_psid, message) => {
           const userID = await User.findOne( {userId: sender_psid} );
           const appBanner = `YoYoPizzaOrderId${userID.orderNo}`;
           //const orderID = await Order.findOne({userId: sender_psid, orderId: appBanner});
-          callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID ${appBanner} .You'll soon get a call for confirmation`); 
+          callSendAPI(sender_psid, `Awesome, Your order is placed.Here's your Order ID \'${appBanner}\' .You'll soon get a call for confirmation`); 
     }
     else if(message.text == "okay" || message.text == "ok" || message.text == "Ok" || message.text == "Okay"){
       callSendAPI(sender_psid, "Done!"); 
