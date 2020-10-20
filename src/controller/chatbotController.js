@@ -170,11 +170,11 @@ const handlePostback = async (sender_psid, received_postback) => {
                 }
       }
   else if(payload === 'Non-veg') {
-    const orderID = uuid();
     const orderNum = await User.findOne({userId: sender_psid});
-    const _orderid = orderID+(orderNum.orderNo+1);
-   await new Order( { orderId:  _orderid} ).save();
+    const _orderid = "YoYoPizzaOrderId"+(orderNum.orderNo+1);
+    await new Order( { orderId:  _orderid, userId: sender_psid} ).save();
     await User.updateOne({userId: sender_psid}, {$inc: {orderNo: 1} });
+
 
       response={
                   "attachment":{
@@ -241,7 +241,6 @@ const handlePostback = async (sender_psid, received_postback) => {
   
   else if (payload === 'veg'){
 
-      const orderID = uuid();
       const orderNum = await User.findOne({userId: sender_psid});
       const _orderid = "YoYoPizzaOrderId"+(orderNum.orderNo+1);
       await new Order( { orderId:  _orderid, userId: sender_psid} ).save();
