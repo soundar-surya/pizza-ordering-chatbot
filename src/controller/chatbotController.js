@@ -169,7 +169,13 @@ const handlePostback = async (sender_psid, received_postback) => {
                   }
                 }
       }
-  else if(payload === 'Non-veg') 
+  else if(payload === 'Non-veg') {
+    const orderID = uuid();
+    const orderNum = await User.findOne({userId: sender_psid});
+    const _orderid = orderID+(orderNum.orderNo+1);
+   await new Order( { orderId:  _orderid} ).save();
+    await User.updateOne({userId: sender_psid}, {$inc: {orderNo: 1} });
+
       response={
                   "attachment":{
                     "type":"template",
@@ -231,15 +237,16 @@ const handlePostback = async (sender_psid, received_postback) => {
                     }
                   }
                }
-
+              }
   
   else if (payload === 'veg'){
 
       const orderID = uuid();
       const orderNum = await User.findOne({userId: sender_psid});
       const _orderid = orderID+(orderNum.orderNo+1);
-     await new Order( { orderId:  _orderid} ).save();
+      await new Order( { orderId:  _orderid, userId: sender_psid} ).save();
       await User.updateOne({userId: sender_psid}, {$inc: {orderNo: 1} });
+
       response = {
                 "attachment":{
                   "type":"template",
@@ -358,30 +365,6 @@ const handleMessage = (sender_psid, message) => {
       return;
   }
 
-    // if(message.text === "Pick One"){
-    //                         let response = {
-    //                           "attachment": {
-    //                             "type": "template",
-    //                             "payload": {
-    //                               "template_type": "button",
-    //                               "text": "What kind of pizza do you want?",
-    //                                 "buttons": [
-    //                                   {
-    //                                     "type": "postback",
-    //                                     "title": "regular",
-    //                                     "payload": "regular",
-    //                                   },
-    //                                   {
-    //                                     "type": "postback",
-    //                                     "title": "medium",
-    //                                     "payload": "medium",
-    //                                   },
-    //                                 ],
-    //                             }
-    //                           }
-    //                         }
-    //             callSendAPI(sender_psid, response);  
-    // }
     if(pattern.test(message.text)){
             callSendAPI(sender_psid, `What's your name? Eg:  name: soundar surya`);
     }
@@ -389,20 +372,20 @@ const handleMessage = (sender_psid, message) => {
               callSendAPI(sender_psid, `what's your Order Id?`);
     }
     else if(message.text.match(patt)){
-              // const match = message.text.split(':').trim();
-              // console.log(`name is ${match}`);
              callSendAPI(sender_psid, `what's your address? Eg: address: 55 Clark St, Brooklyn, NY.`); 
     }
     else if(message.text.match(Address)){
-          // const match = message.text.split(':');
-          // console.log(`name is ${match}`);
           callSendAPI(sender_psid, `Awesome, Your order is placed.You'll soon get a call for confirmation`); 
     }
-    else if(message.text == "okay" || message.text == "ok"){
+    else if(message.text == "okay" || message.text == "ok" || message.text == "Ok" || message.text == "Okay"){
       callSendAPI(sender_psid, "Done!"); 
     }
 
     else if(deadline.test(message.text)){
+
+    const orderNum = await User.findOne({userId: sender_psid});
+    await Order.updateOne({userId: sender_psid}, {quantity: message.text});
+
       let response = {
         "attachment": {
           "type": "template",
@@ -446,8 +429,8 @@ const handleMessage = (sender_psid, message) => {
               callSendAPI(sender_psid,`sorry, I don't get you!` );
           }else{
             if(entityChosen === "wit$greetings"){
-                //send greetings message
 
+                //send greetings message
                   let response = {
                     "attachment": {
                       "type": "template",
