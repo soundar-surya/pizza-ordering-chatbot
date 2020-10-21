@@ -388,9 +388,9 @@ const handleMessage = async (sender_psid, message) => {
     }
 
     else if(deadline.test(message.text)){
-      const userID = await User.findOne( {userId: sender_psid} );
+          const userID = await User.findOne( {userId: sender_psid} );
           const appBanner = `YoYoPizzaOrderId${userID.orderNo}`;
-     await Order.updateOne({userId: sender_psid, orderId: appBanner}, {quantity: message.text});
+          await Order.updateOne({userId: sender_psid, orderId: appBanner}, {quantity: message.text});
 
       let response = {
         "attachment": {
